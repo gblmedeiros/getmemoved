@@ -1,0 +1,20 @@
+<div class="questions-bg">
+
+	<div class="flex-center" ng-controller="questionsCtrl">
+		<div class="box content-center">
+			<div>
+				<h1>THANK YOU FOR SUBSCRIBING</h1>
+				<h2>We want to hear more about you.</h2> 
+				<h2>Would you mind answering these questions?</h2>
+			</div>
+			<form name="questionsForm" ng-submit="submitQuestions()">
+				<div class="form-group" ng-repeat="q in formData.questions">			
+					<p>{{q.question}}</p>
+					<input type="text" ng-model="q.answer" required="true" ng-model-instant class="form-control input"/>	
+				</div>				
+				<button type="submit" class="btn btn-block btn-success" >Submit</button>				
+			</form>
+		</div>
+	</div>
+
+</div>

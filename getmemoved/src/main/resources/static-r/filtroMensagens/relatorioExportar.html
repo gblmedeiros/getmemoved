@@ -1,0 +1,41 @@
+<div id="tabelaExport" ng-if="mensagens.length > 0" class="col-sm-12">
+	<table cellspacing="0" cellpadding="0" border="0" 
+		class="table table-condensed table-bordered table-striped">
+		<thead>
+			<tr>
+				<th align="center">Id</th>
+				<th align="center">Mensagem</th>
+				<th align="center">Corporação</th>
+				<th align="center">Natureza</th>
+				<th align="center">Estado</th>
+				<th align="center">Cidade</th>
+				<th align="center">Bairro</th>
+				<th align="center">Rua</th>
+				<th align="center">Numero</th>
+				<th align="center">Cep</th>
+				<th align="center">Endereço Completo</th>
+				<th align="center">Contato</th>
+				<th align="center">Data Denúncia</th>
+				<th align="center">Data Ocorrência</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="m in mensagens">
+				<td>{{m.id}}</td>
+				<td>{{m.mensagem}}</td>
+				<td>{{m.corporacao}}</td>
+				<td>{{m.natureza}}</td>
+				<td>{{m.estado}}</td>
+				<td>{{m.nomeCidade}}</td>
+				<td>{{m.bairro}}</td>
+				<td>{{m.rua}}</td>
+				<td>{{m.numero}}</td>
+				<td>{{m.cep}}</td>
+				<td>{{m.enderecoCompleto}}</td>
+				<td>{{m.contato}}</td>
+				<td>{{m.dataDenuncia}}</td>
+				<td>{{m.dataOcorrencia}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

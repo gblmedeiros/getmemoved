@@ -1,0 +1,159 @@
+<div id="telaFiltarMensagens" class="container">
+	
+	<div class="col-sm-12">
+	
+		<h2 align="center" id="inicio">
+			Filtros mensagens
+	    </h2>
+		
+		<br/>
+		<br/>
+		
+		<div ng-if="hasError" class="col-sm-12 alert alert-danger" role="alert">
+		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  <span class="sr-only">Erro:</span>
+			{{msgErro}}
+		</div>
+		
+		<form class="form-horizontal">	
+			<div class="form-group">			
+				<label class="col-sm-3 control-label" for="estado"><span class="vermelho">*</span>Estado:</label>		
+				<div class="col-sm-4">
+					<select id="estado" name="estado"
+                                    class="form-control"
+                                    ng-model="estado"
+                                    ng-change="carregarCidades()">
+									<option value=''></option>
+                                    <option ng-repeat="e in estadosCidades">{{e.nome}}</option>
+                                </select>		
+				</div>
+			</div> 
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="cidade">Cidade:</label>
+				<div class="col-sm-4">
+					<select id="cidade" name="cidade"
+                        class="form-control"
+						ng-disabled="!existeEstado"
+                        ng-model="cidade">    
+						<option value=''></option>															
+                        <option ng-repeat="c in cidades">{{c}}</option>
+                    </select>
+				</div>
+			</div> 
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="corporacao">Corporação:</label>
+				<div class="col-sm-4">
+					<select id="corporacao" name="corporacao"
+	                    class="form-control"
+	                    ng-model="corporacao">
+						<option value=''></option>									
+						<option value={{c.id}} ng-repeat="c in corporacoes">{{c.nomeCorporacao}}</option>									
+	                </select>		
+				</div>
+			</div> 
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="natureza">Natureza:</label>
+				<div class="col-sm-4">
+					<select id="natureza" name="natureza"
+                        class="form-control"
+                        ng-model="natureza">
+						<option value=''></option>									
+						<option value={{n.id}} ng-repeat="n in naturezas">{{n.naturezaDenuncia}}</option>									
+                    </select>		
+				</div>
+			</div> 
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="dtInicio">Data Ínicio:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="dtInicio" placeholder="DD/MM/YYYY" id="dtInicio">							                	
+				</div>
+			</div> 
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="dtFim">Data Fim:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="dtFim" placeholder="DD/MM/YYYY" id="dtFim">							                	
+				</div>
+			</div> 
+			
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-3">
+				  <button ng-click="consultarDados()" class="btn btn-default">Consultar</button>
+				</div>
+			</div>
+			
+			<!--<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-3">
+				  <button ng-click="consultarErro()" class="btn btn-default">Consultar erro</button>
+				</div>
+			</div>-->
+		</form>
+		
+	</div>
+	
+	<br/>
+	<br/>
+	
+	<div ng-if="mensagens.length > 0" class="col-sm-12">
+		<table id="tabelaMensagens" cellspacing="0" cellpadding="0" border="0" 
+			class="table table-condensed table-bordered table-striped">
+			<thead>
+				<tr>
+					<th width="30%" align="center">Mensagem</th>
+					<th width="8%" align="center">Estado</th>
+					<th width="10%" align="center">Cidade</th>
+					<th width="10%" align="center">Data Denúncia</th>
+					<th width="10%" align="center">Corporação</th>
+					<th width="10%" align="center">Natureza</th>
+					<th width="20%" align="center">Anexo</th>
+					<th width="2%" align="center"></th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="m in filteredMensagens">
+					<td class="clickable" uib-tooltip="{{m.mensagem}}" tooltip-trigger="mouseenter" 
+					tooltip-placement="top" tooltip-append-to-body="true"
+					ng-click="exibirDetalheMsg(m)">{{m.mensagemTrunk}}</td>
+					<td>{{m.estado}}</td>
+					<td>{{m.nomeCidade}}</td>
+					<td>{{m.dataDenuncia}}</td>
+					<td>{{m.corporacao}}</td>
+					<td>{{m.natureza}}</td>
+					<td><a href="{{urlAnexo+m.id}}">{{m.nomeAnexo}}</a></td>
+					<td align="center" class="centralizar">
+						<img id="excluir" class="clickable img-tabela" ng-click="excluirDenuncia(m)" src='../assets/img/lixeira.svg'></img>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<mensagem-detalhe callback="callback()" ng-if="msgSelecionada.length > 0" ng-model="msgSelecionada"></mensagem-detalhe>
+	<div ng-if="msgSelecionada.length > 0" id="cortina"></div>
+
+	<div ng-if="mensagens.length > 0" class="form-group">
+		<div class="col-sm-offset-10 col-sm-2">
+		  <button ng-click="exportXls()" class="btn btn-default">Exportar Xls</button>
+		</div>
+	</div>
+	
+	<div ng-if="mensagens.length > 0">
+		<div class="div-pag">
+			<uib-pagination id="paginacao" total-items="totalItems" ng-model="currentPage" 
+				class="pagination-sm" ng-change="setCurrentPage(this); trataPaginacaoMensagem()" max-size="maxSize">			
+			</uib-pagination>		
+			<input type="number" min="1" max="{{numPages}}" ng-model="currentPage" id="paginaAtual" class="text-pagination" ng-change="setCurrentPage2(currentPage); trataPaginacaoMensagem()"/>
+		</div>
+		<pre>Página: {{currentPage}} / {{numPages}} Denuncias: {{denIni}} - {{denFim}} ({{mensagens.length}} no total) </pre>	
+	</div>
+
+	<ng-include ng-hide="true" src="'filtroMensagens/relatorioExportar.html'"></ng-include>
+
+</div>
+
+

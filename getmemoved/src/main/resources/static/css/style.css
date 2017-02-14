@@ -1,0 +1,112 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+html, body {
+	height: 100%;
+	min-height: 100%;
+	margin: 0;
+}
+
+body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15px;	
+}
+
+h1 {
+	font-size: 40px;
+	color: rgba(255, 255, 255, 0.9);  
+}
+
+h2 {
+	font-size: 30px;
+	color: rgba(255, 255, 255, 0.9);  
+}
+
+p {
+	font-size: 17px;	
+	color: rgba(255, 255, 255, 0.9);  
+}
+
+.separator {
+	heigh: 1px;
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;	
+	border: 1px solid rgba(255, 255, 255, 0.5)	
+}
+
+.subscription-flex {
+    flex: 2; 
+	display: flex; 
+	align-items: stretch;                           
+}
+
+.subscription-bg {
+	background: url(../images/norway.jpg) no-repeat center center fixed;
+	background-size: cover;
+}
+
+.questions-bg {
+	height: 100%;
+	background: url(../images/abudabhi.jpg) no-repeat center center fixed;
+	background-size: cover;
+}
+
+.subscription-bg-front {
+	background: url(../images/norway.jpg) no-repeat center center fixed;
+	background-size: 60%;
+}
+
+.subscription-container {
+	flex-basis: 100%; 
+    display: flex; 
+    align-items: center;
+	text-align: center;
+	padding: 30px;
+}
+ 
+.box {
+	padding: 30px;
+	border: 3px solid rgba(255, 255, 255, 0.7);
+}
+
+.subscription {
+	width: 100%;
+}
+
+.content-center {
+	max-width: 50%;	
+}
+
+.sidebar {
+	-webkit-flex: 1;
+    flex: 1;
+}
+
+.sidebar-left-bg {
+	background: url(../images/bg2.jpg) no-repeat left top fixed, url(../images/queenstown.jpg) no-repeat left center fixed, url(../images/abudabhi.jpg) no-repeat left bottom fixed;
+	background-size: 40% 36%, 40% 36%, 40% 36%;
+}
+
+.sidebar-right-bg {
+	background: url(../images/countryside.jpg) no-repeat right top fixed, url(../images/londonA6.jpg) no-repeat right center fixed, url(../images/vancouver.jpg) no-repeat right bottom fixed;
+	background-size: 40% 36%, 40% 36%, 40% 36%;
+}
+
+/***************************************/
+.flex-container {
+    height: 100%;
+	min-height: 100%;
+	display: -webkit-flex;
+	display: flex;
+	flex-flow: row wrap;
+	-webkit-align-items: stretch;
+	align-items: stretch;
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
